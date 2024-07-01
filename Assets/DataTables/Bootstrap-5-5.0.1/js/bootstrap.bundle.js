@@ -1,26 +1,9 @@
-/*!
-  * Bootstrap v5.0.1 (https://getbootstrap.com/)
-  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.bootstrap = factory());
 }(this, (function () { 'use strict';
 
-  /**
-   * --------------------------------------------------------------------------
-   * Bootstrap (v5.0.1): dom/selector-engine.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-   * --------------------------------------------------------------------------
-   */
-
-  /**
-   * ------------------------------------------------------------------------
-   * Constants
-   * ------------------------------------------------------------------------
-   */
   const NODE_TEXT = 3;
   const SelectorEngine = {
     find(selector, element = document.documentElement) {
@@ -80,16 +63,10 @@
 
   };
 
-  /**
-   * --------------------------------------------------------------------------
-   * Bootstrap (v5.0.1): util/index.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-   * --------------------------------------------------------------------------
-   */
 
   const MAX_UID = 1000000;
   const MILLISECONDS_MULTIPLIER = 1000;
-  const TRANSITION_END = 'transitionend'; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
+  const TRANSITION_END = 'transitionend'; 
 
   const toType = obj => {
     if (obj === null || obj === undefined) {
@@ -98,11 +75,6 @@
 
     return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
   };
-  /**
-   * --------------------------------------------------------------------------
-   * Public Util Api
-   * --------------------------------------------------------------------------
-   */
 
 
   const getUID = prefix => {
@@ -117,14 +89,11 @@
     let selector = element.getAttribute('data-bs-target');
 
     if (!selector || selector === '#') {
-      let hrefAttr = element.getAttribute('href'); // The only valid content that could double as a selector are IDs or classes,
-      // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
-      // `document.querySelector` will rightfully complain it is invalid.
-      // See https://github.com/twbs/bootstrap/issues/32273
+      let hrefAttr = element.getAttribute('href');
 
       if (!hrefAttr || !hrefAttr.includes('#') && !hrefAttr.startsWith('.')) {
         return null;
-      } // Just in case some CMS puts out a full URL with the anchor appended
+      } 
 
 
       if (hrefAttr.includes('#') && !hrefAttr.startsWith('#')) {
@@ -155,7 +124,7 @@
   const getTransitionDurationFromElement = element => {
     if (!element) {
       return 0;
-    } // Get transition-duration of the element
+    }
 
 
     let {
@@ -163,11 +132,11 @@
       transitionDelay
     } = window.getComputedStyle(element);
     const floatTransitionDuration = Number.parseFloat(transitionDuration);
-    const floatTransitionDelay = Number.parseFloat(transitionDelay); // Return 0 if element or transition duration is not found
+    const floatTransitionDelay = Number.parseFloat(transitionDelay);
 
     if (!floatTransitionDuration && !floatTransitionDelay) {
       return 0;
-    } // If multiple durations are defined, take the first
+    }
 
 
     transitionDuration = transitionDuration.split(',')[0];
@@ -267,7 +236,7 @@
   const findShadowRoot = element => {
     if (!document.documentElement.attachShadow) {
       return null;
-    } // Can find the shadow root otherwise it'll return the document
+    } 
 
 
     if (typeof element.getRootNode === 'function') {
@@ -277,7 +246,7 @@
 
     if (element instanceof ShadowRoot) {
       return element;
-    } // when we don't find a shadow root
+    } 
 
 
     if (!element.parentNode) {
@@ -338,18 +307,6 @@
     }
   };
 
-  /**
-   * --------------------------------------------------------------------------
-   * Bootstrap (v5.0.1): dom/data.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-   * --------------------------------------------------------------------------
-   */
-
-  /**
-   * ------------------------------------------------------------------------
-   * Constants
-   * ------------------------------------------------------------------------
-   */
   const elementMap = new Map();
   var Data = {
     set(element, key, instance) {
@@ -357,11 +314,10 @@
         elementMap.set(element, new Map());
       }
 
-      const instanceMap = elementMap.get(element); // make it clear we only want one instance per element
-      // can be removed later when multiple key/instances are fine to be used
+      const instanceMap = elementMap.get(element);
 
       if (!instanceMap.has(key) && instanceMap.size !== 0) {
-        // eslint-disable-next-line no-console
+
         console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
         return;
       }
@@ -383,7 +339,7 @@
       }
 
       const instanceMap = elementMap.get(element);
-      instanceMap.delete(key); // free up element references if there are no instances left for an element
+      instanceMap.delete(key); 
 
       if (instanceMap.size === 0) {
         elementMap.delete(element);
